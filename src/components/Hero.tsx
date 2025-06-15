@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+    <section id='home' className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       {/* Animated background grid with responsive blur */}
       <div className="absolute inset-0 opacity-10 backdrop-blur-md md:backdrop-blur-sm">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
