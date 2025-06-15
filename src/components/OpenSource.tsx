@@ -127,7 +127,7 @@ const OpenSource = () => {
 
   if (loading) {
     return (
-      <section className="py-32 bg-charcoal/30">
+      <section id='opensource' className="py-32 bg-charcoal/30">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="animate-pulse space-y-4">

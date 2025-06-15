@@ -13,7 +13,7 @@ const About = () => {
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section id='about' className="py-32 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
