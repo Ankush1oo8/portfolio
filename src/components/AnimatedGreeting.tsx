@@ -7,10 +7,10 @@ const greetings = [
   { text: 'Bonjour', font: 'font-mono' },
   { text: 'Hallo', font: 'font-serif' },
   { text: 'Ciao', font: 'font-sans' },
-  { text: 'こんにちは', font: 'font-inter' },
-  { text: '안녕하세요', font: 'font-playfair' },
-  { text: 'नमस्ते', font: 'font-serif' },
-  { text: 'مرحبا', font: 'font-mono' },
+  { text: 'こんにちは', font: 'font-inter' }, // Japanese
+  { text: '안녕하세요', font: 'font-playfair' }, // Korean
+  { text: 'नमस्ते', font: 'font-serif' }, // Hindi (Devanagari)
+  { text: 'مرحبا', font: 'font-mono' }, // Arabic
   { text: 'Olá', font: 'font-sans' }
 ];
 
@@ -20,7 +20,7 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
   const [showFinal, setShowFinal] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const greetingDuration = 700; // ms per greeting
+  const greetingDuration = 700; // milliseconds per greeting
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -50,6 +50,17 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
     return () => clearInterval(intervalRef.current!);
   }, [onComplete]);
 
+  const greetingText = greetings[currentIndex].text;
+
+  // Hindi detection based on Devanagari Unicode block
+  const isHindi = /[\u0900-\u097F]/.test(greetingText);
+  const shouldSplit = !isHindi; // All non-Hindi greetings split normally
+
+  // Split graphemes correctly for Hindi, otherwise split by char
+  const graphemes = shouldSplit
+    ? greetingText.split('')
+    : [...new Intl.Segmenter('hi', { granularity: 'grapheme' }).segment(greetingText)];
+
   return (
     <AnimatePresence>
       {showGreeting && (
@@ -69,7 +80,6 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                {/* Typing animation */}
                 <motion.h1
                   className={`text-6xl lg:text-8xl font-bold text-white flex justify-center ${greetings[currentIndex].font}`}
                   initial="hidden"
@@ -78,12 +88,12 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
                     hidden: {},
                     visible: {
                       transition: {
-                        staggerChildren: 0.04, // speed of typing
+                        staggerChildren: 0.04
                       },
                     },
                   }}
                 >
-                  {greetings[currentIndex].text.split('').map((char, index) => (
+                  {graphemes.map((char, index) => (
                     <motion.span
                       key={index}
                       className="inline-block"
@@ -93,20 +103,23 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
                       }}
                       transition={{ duration: 0.2 }}
                     >
-                      {char}
+                      {shouldSplit ? char : char.segment}
                     </motion.span>
                   ))}
                 </motion.h1>
               </motion.div>
             </AnimatePresence>
 
-            {/* Continuous progress bar */}
+            {/* Smooth continuous progress bar */}
             <div className="mt-8 w-64 h-1 bg-border rounded-full mx-auto overflow-hidden">
               <motion.div
                 className="h-full bg-primary rounded-full"
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: (greetings.length * greetingDuration) / 1000, ease: 'linear' }}
+                transition={{
+                  duration: (greetings.length * greetingDuration) / 1000,
+                  ease: 'linear',
+                }}
               />
             </div>
           </div>
