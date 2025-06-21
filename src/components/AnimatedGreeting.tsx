@@ -20,10 +20,9 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
   const [showFinal, setShowFinal] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const greetingDuration = 700; // 700ms per greeting
+  const greetingDuration = 700; // ms per greeting
 
   useEffect(() => {
-    // Accessibility check for reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       setShowGreeting(false);
@@ -32,7 +31,6 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
       return;
     }
 
-    // Start greeting cycle
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => {
         if (prev < greetings.length - 1) {
@@ -66,20 +64,43 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 1.1, y: -20 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                <h1
-                  className={`text-6xl lg:text-8xl font-bold text-white ${greetings[currentIndex].font}`}
+                {/* Typing animation */}
+                <motion.h1
+                  className={`text-6xl lg:text-8xl font-bold text-white flex justify-center ${greetings[currentIndex].font}`}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {},
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.04, // speed of typing
+                      },
+                    },
+                  }}
                 >
-                  {greetings[currentIndex].text}
-                </h1>
+                  {greetings[currentIndex].text.split('').map((char, index) => (
+                    <motion.span
+                      key={index}
+                      className="inline-block"
+                      variants={{
+                        hidden: { opacity: 0, y: 10 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </motion.h1>
               </motion.div>
             </AnimatePresence>
 
-            {/* Smooth progress bar */}
+            {/* Continuous progress bar */}
             <div className="mt-8 w-64 h-1 bg-border rounded-full mx-auto overflow-hidden">
               <motion.div
                 className="h-full bg-primary rounded-full"
