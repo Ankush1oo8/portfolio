@@ -1,5 +1,6 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -8,8 +9,12 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import OpenSource from '@/components/OpenSource';
 import Contact from '@/components/Contact';
+import AnimatedGreeting from '@/components/AnimatedGreeting';
 
 const Index = () => {
+  const [showGreeting, setShowGreeting] = useState(true);
+  const [showMainContent, setShowMainContent] = useState(false);
+
   useEffect(() => {
     // Smooth scrolling setup
     const smoothScroll = (e: Event) => {
@@ -27,48 +32,63 @@ const Index = () => {
     return () => document.removeEventListener('click', smoothScroll);
   }, []);
 
+  const handleGreetingComplete = () => {
+    setShowGreeting(false);
+    setTimeout(() => setShowMainContent(true), 100);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navigation />
-      
-      <main>
-        <section id="home">
-          <Hero />
-        </section>
-        
-        <section id="about">
-          <About />
-        </section>
+      <AnimatePresence>
+        {showGreeting && (
+          <AnimatedGreeting onComplete={handleGreetingComplete} />
+        )}
+      </AnimatePresence>
 
-        <section id="experience">
-          <Experience />
-        </section>
-        
-        <section id="skills">
-          <Skills />
-        </section>
-        
-        <section id="projects">
-          <Projects />
-        </section>
-        
-        <section id="opensource">
-          <OpenSource />
-        </section>
-        
-        <section id="contact">
-          <Contact />
-        </section>
-      </main>
+      {showMainContent && (
+        <>
+          <Navigation />
+          
+          <main>
+            <section id="home">
+              <Hero />
+            </section>
+            
+            <section id="about">
+              <About />
+            </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-border/20">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-muted-foreground">
-            © 2025 Ankush Chudiwal. Built with Next JS, React, TypeScript, and lots of ☕
-          </p>
-        </div>
-      </footer>
+            <section id="experience">
+              <Experience />
+            </section>
+            
+            <section id="skills">
+              <Skills />
+            </section>
+            
+            <section id="projects">
+              <Projects />
+            </section>
+            
+            <section id="opensource">
+              <OpenSource />
+            </section>
+            
+            <section id="contact">
+              <Contact />
+            </section>
+          </main>
+
+          {/* Footer */}
+          <footer className="py-8 border-t border-border/20">
+            <div className="container mx-auto px-4 text-center">
+              <p className="text-muted-foreground">
+                © 2024 Ankush. Built with React, TypeScript, and lots of ☕
+              </p>
+            </div>
+          </footer>
+        </>
+      )}
     </div>
   );
 };
