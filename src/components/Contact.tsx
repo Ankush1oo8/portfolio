@@ -60,7 +60,7 @@ const Contact = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'India, Maharashtra',
+      value: 'Solapur, India',
       href: '#'
     }
   ];

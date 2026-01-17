@@ -6,7 +6,12 @@ const Hero = () => {
   return (
     <section id='home' className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       {/* Animated background grid with responsive blur */}
-      <div className="absolute inset-0 opacity-10 backdrop-blur-md md:backdrop-blur-sm">
+      <motion.div 
+        className="absolute inset-0 opacity-10 backdrop-blur-md md:backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.1 }} // Fade in to its default opacity
+        transition={{ duration: 1, delay: 0.8 }} // After other elements have appeared
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
         <div className="grid grid-cols-12 h-full">
           {Array.from({ length: 144 }).map((_, i) => (
@@ -24,7 +29,7 @@ const Hero = () => {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-4 z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -33,14 +38,14 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }} // More pronounced easeOut
               className="space-y-4"
             >
               <motion.h1 
                 className="text-6xl lg:text-8xl font-playfair font-bold"
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
+                transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }} // More pronounced easeOut
               >
                 <span className="block text-gradient">Full Stack</span>
                 <span className="block">Developer</span>
@@ -50,7 +55,7 @@ const Hero = () => {
                 className="text-xl text-muted-foreground max-w-lg leading-relaxed"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }} // More pronounced easeOut
               >
                 Crafting exceptional digital experiences with modern technologies. 
                 Passionate about clean code, innovative solutions, and open source contributions.
@@ -59,53 +64,87 @@ const Hero = () => {
 
             <motion.div
               className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: 0.6,
+                    staggerChildren: 0.1, // Stagger children for sequential animation
+                    ease: [0.25, 0.1, 0.25, 1]
+                  }
+                }
+              }}
             >
-              <Button 
-                size="lg" 
-                className="group premium-border text-white hover-lift glow-effect hover:text-black"
-                asChild
-              >
-                <a href="/cv.pdf" download>
-                  <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
-                  Download Resume
-                </a>
-              </Button>
+              <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+                <Button 
+                  size="lg" 
+                  className="group premium-border text-white hover-lift glow-effect hover:text-black"
+                  asChild
+                >
+                  <a href="/cv.pdf" download>
+                    <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+                    Download Resume
+                  </a>
+                </Button>
+              </motion.div>
               
-              <div className="flex gap-3">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="glass-effect hover-lift group"
-                  asChild
-                >
-                  <a href="https://github.com/ankush1oo8" target="_blank" rel="noopener noreferrer">
-                    <Github className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-                  </a>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="glass-effect hover-lift group"
-                  asChild
-                >
-                  <a href="https://www.linkedin.com/in/ankush-chudiwal/" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                  </a>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="glass-effect hover-lift group"
-                  asChild
-                >
-                  <a href="mailto:ankushchudiwalwit@gmail.com">
-                    <Mail className="h-5 w-5 group-hover:animate-pulse" />
-                  </a>
-                </Button>
-              </div>
+              <motion.div 
+                className="flex gap-3"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1 // Stagger children for sequential animation
+                    }
+                  }
+                }}
+              >
+                <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="glass-effect hover-lift group"
+                    asChild
+                  >
+                    <a href="https://github.com/ankush1oo8" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                    </a>
+                  </Button>
+                </motion.div>
+                <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="glass-effect hover-lift group"
+                    asChild
+                  >
+                    <a href="https://www.linkedin.com/in/ankush-chudiwal/" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                    </a>
+                  </Button>
+                </motion.div>
+                <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="glass-effect hover-lift group"
+                    asChild
+                  >
+                    <motion.a 
+                      href="mailto:ankushchudiwalwit@gmail.com"
+                      whileHover={{ scale: 1.1, rotate: 5 }} // Example: slight scale and rotate on hover
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Mail className="h-5 w-5" />
+                    </motion.a>
+                  </Button>
+                </motion.div>
+              </motion.div>
             </motion.div>
           </div>
 
