@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, Download, Code, Server, Container, Cloud } from 'lucide-react'; // Added Code, Server, Container, Cloud
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
+  const techIcons = [Code, Server, Container, Cloud]; // Array of Lucide icon components
+
   return (
     <section id='home' className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       {/* Animated background grid with responsive blur */}
@@ -150,13 +152,13 @@ const Hero = () => {
 
           <div className="flex justify-center lg:justify-end">
             <motion.div
-              className="relative"
+              className="relative w-full max-w-[280px] h-auto aspect-square mx-auto md:max-w-[320px] lg:max-w-[384px]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
             >
               <motion.div 
-                className="relative w-80 h-80 lg:w-96 lg:h-96"
+                className="relative w-full h-full"
                 animate={{ y: [-10, 10, -10] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               >
@@ -171,32 +173,34 @@ const Hero = () => {
                   transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
                 />
                 
-                <div className="absolute inset-8 rounded-full bg-gradient-to-br from-card via-accent to-muted glass-effect flex items-center justify-center">
-                  <span className="text-6xl font-playfair font-bold text-gradient">A</span>
+                <div className="absolute inset-8 rounded-full bg-gradient-to-br from-card via-accent to-muted glass-effect flex items-center justify-center overflow-hidden">
+                  <img src="/my-photo" alt="Ankush's Photo" className="w-full h-full object-cover" />
                 </div>
                 
-                {['⚛️', '🔥', '⚡', '🚀'].map((icon, index) => (
-                  <motion.div
-                    key={icon}
-                    className="absolute w-12 h-12 rounded-full glass-effect flex items-center justify-center text-xl"
-                    style={{
-                      top: `${20 + Math.sin(index * Math.PI / 2) * 40}%`,
-                      left: `${20 + Math.cos(index * Math.PI / 2) * 40}%`,
-                    }}
-                    animate={{
-                      y: [0, -10, 0],
-                      rotate: [0, 180, 360],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: index * 0.5,
-                      ease: 'easeInOut'
-                    }}
-                  >
-                    {icon}
-                  </motion.div>
-                ))}
+                <div className="hidden sm:block"> {/* Hide on extra small screens, show on sm and above */}
+                  {techIcons.map((Icon, index) => ( // Using Icon as component
+                    <motion.div
+                      key={index} // Use index as key, or better, if icons had unique IDs
+                      className="absolute w-12 h-12 rounded-full glass-effect flex items-center justify-center text-xl"
+                      style={{
+                        top: `${20 + Math.sin(index * Math.PI / 2) * 40}%`,
+                        left: `${20 + Math.cos(index * Math.PI / 2) * 40}%`,
+                      }}
+                      animate={{
+                        y: [0, -10, 0],
+                        rotate: [0, 180, 360],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        delay: index * 0.5,
+                        ease: 'easeInOut'
+                      }}
+                    >
+                      <Icon className="h-6 w-6" /> {/* Render the icon component */}
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             </motion.div>
           </div>
