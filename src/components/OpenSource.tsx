@@ -34,6 +34,18 @@ interface GitHubStats {
   totalCommits: number;
 }
 
+interface GitHubRepo {
+  id: number;
+  name: string;
+  full_name: string;
+  html_url: string;
+  description: string | null;
+  fork: boolean;
+  stargazers_count: number;
+  watchers_count: number;
+  language: string | null;
+}
+
 const OpenSource = () => {
   const [prs, setPrs] = useState<GitHubPR[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +78,7 @@ const OpenSource = () => {
         console.log('PR Data:', prData.items); // Debug log to inspect html_url
 
         // Fetch repositories
-        let allRepos: any[] = [];
+        let allRepos: GitHubRepo[] = [];
         let page = 1;
         const perPage = 100;
 
@@ -97,9 +109,13 @@ const OpenSource = () => {
         } else {
           throw new Error('Invalid PR data received');
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Error fetching GitHub data:', error);
-        setError(error.message || 'Failed to fetch GitHub data. Please try again later.');
+        if (error instanceof Error) {
+          setError(error.message || 'Failed to fetch GitHub data. Please try again later.');
+        } else {
+          setError('An unknown error occurred.');
+        }
       } finally {
         setLoading(false);
       }

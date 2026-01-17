@@ -6,6 +6,24 @@ import projectImage from '/project.png';
 const Projects = () => {
   const projects = [
     {
+      title: 'OFFPAY - Offline UPI Payment Solution',
+      description: 'Engineered offline UPI payment system using USSD, SMS, and NFC technologies for seamless transactions without internet. Designed accessible payment solutions for feature phones enhancing financial inclusion using backend development and data synchronization. Implemented encryption protocols and integrated with financial systems using secure APIs and data reconciliation techniques.',
+      tech: ['Node.js', 'MongoDB', 'REST APIs', 'NFC'],
+      image: '/placeholder.svg',
+      github: 'https://github.com/Ankush1oo8/offpay',
+      demo: 'https://github.com/Ankush1oo8/offpay', // Assuming demo is github for now
+      featured: true
+    },
+    {
+      title: 'ZomatoReels - Food Discovery Platform',
+      description: 'Built full-stack MERN application with reels-style video feed for food discovery, implementing production-level folder structure and RESTful APIs. Integrated ImageKit cloud storage, Multer file upload, and UUID for scalable video management with metadata preloading optimization. Implemented JWT authentication, bcrypt password hashing, CORS, and cookie-parser for secure user sessions and role-based access control.',
+      tech: ['MERN Stack', 'MongoDB', 'Express.js', 'React.js', 'Node.js', 'ImageKit', 'Multer', 'JWT'],
+      image: '/placeholder.svg', // Placeholder as no specific image was provided
+      github: 'https://github.com/Ankush1oo8/zomotoReels',
+      demo: 'https://github.com/Ankush1oo8/zomotoReels',
+      featured: true
+    },
+    {
       title: 'Full-Stack Web Application',
       description: 'A dynamic web application with user authentication, session management, and media handling. Features secure login via Passport, dynamic EJS templates, and cloud-based storage with MongoDB Atlas and Cloudinary.',
       tech: ['Node.js', 'Express', 'MongoDB', 'Passport', 'EJS', 'Cloudinary', 'MongoDB Atlas'],
@@ -13,33 +31,6 @@ const Projects = () => {
       github: 'https://github.com/Ankush1oo8/Project',
       demo: 'https://major-project-z4v3.onrender.com/listings',
       featured: true
-    },
-    {
-      title: 'OFFPAY',
-      description: 'An offline UPI payment solution using USSD, SMS, and NFC technologies for transactions without internet. Designed for feature phones with secure encryption and data synchronization.',
-      tech: ['JavaScript', 'Node.js', 'MongoDB'],
-      image: '/placeholder.svg',
-      github: 'https://github.com/Ankush1oo8/offpay',
-      demo: 'https://github.com/Ankush1oo8/offpay',
-      featured: true
-    },
-    {
-      title: 'SilentSpeak',
-      description: 'An anonymous messaging application enabling secure secret message sending with optional acceptance settings. Features custom OTP-based authentication and user validation.',
-      tech: ['Next.js', 'TypeScript', 'MongoDB', 'React Hooks', 'OpenAI API'],
-      image: '/placeholder.svg',
-      github: '#',
-      demo: '#',
-      featured: false
-    },
-    {
-      title: 'Portfolio Website',
-      description: 'A responsive portfolio website with smooth animations, dark mode support, and optimized performance.',
-      tech: ['React', 'Framer Motion', 'Tailwind CSS'],
-      image: '/placeholder.svg',
-      github: '#',
-      demo: '#',
-      featured: false
     }
   ];
 

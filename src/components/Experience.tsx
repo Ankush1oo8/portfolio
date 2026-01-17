@@ -5,16 +5,33 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
-      title: 'Full Stack Developer Intern',
-      company: 'HealMeRight',
+      title: 'SDE Intern',
+      company: 'Today Solve Private Limited',
       location: 'Remote',
-      period: 'Jan 2025 - Present',
-      description: 'Contributed to the development and optimization of a Progressive Web App (PWA) for cross-platform performance. Enhanced user onboarding and integrated open-source tools to improve functionality.',
-      technologies: ['EJS', 'Node.js', 'SCSS', 'JavaScript', 'Express.js', 'Docker'],
+      period: 'Sept 2025 - Present',
+      description: 'Built and maintained ingestion pipelines for Google Docs, Sheets, and YouTube captions, improving data consistency and autosync reliability in Hana. Diagnosed and fixed major ingestion issues including race conditions, malformed memory chunks, and deletion inconsistencies. Developed real-time map features and dealer dashboards for the Juice powerbank ecosystem using cabinet telemetry and live station data. Designed a Sheets resync prototype using diffing and chunking to reduce redundant processing. Owned PR reviews, testing, and releases across ingestion, dashboards, and memory tools; updated documentation and rebuilt ingestion environments.',
+      technologies: ['Google Docs API', 'Google Sheets API', 'YouTube API', 'Hana', 'React', 'Node.js', 'TypeScript', 'Docker'], // Added some plausible technologies based on description
       achievements: [
-        'Optimized PWA for seamless Android and iOS performance',
-        'Improved user onboarding experience',
-        'Deployed Formbricks for efficient data collection and feedback'
+        'Improved data consistency and autosync reliability in Hana',
+        'Diagnosed and fixed major ingestion issues (race conditions, malformed memory chunks, deletion inconsistencies)',
+        'Developed real-time map features and dealer dashboards',
+        'Designed Sheets resync prototype reducing redundant processing',
+        'Owned PR reviews, testing, and releases across multiple tools'
+      ]
+    },
+    {
+      id: 2,
+      title: 'Full Stack Developer Intern',
+      company: 'HealToFit',
+      location: 'Remote',
+      period: 'Jan 2025 - July 2025',
+      description: 'Optimized Progressive Web App (PWA) architecture for cross-platform performance on Android and iOS using React.js, TypeScript, and Frontend Performance Optimization. Enhanced client onboarding systems and integrated Formbricks for data collection, deploying solutions with Docker and CI/CD pipelines, improving user engagement by 40%. Built maintainable web applications using Node.js, Express.js, EJS templating, and SCSS.',
+      technologies: ['React.js', 'TypeScript', 'Frontend Performance Optimization', 'Docker', 'CI/CD', 'Node.js', 'Express.js', 'EJS', 'SCSS'],
+      achievements: [
+        'Optimized PWA architecture for cross-platform performance',
+        'Enhanced client onboarding systems and integrated Formbricks',
+        'Improved user engagement by 40%',
+        'Built maintainable web applications'
       ]
     },
     {
