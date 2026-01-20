@@ -31,6 +31,33 @@ const Projects = () => {
       github: 'https://github.com/Ankush1oo8/Project',
       demo: 'https://major-project-z4v3.onrender.com/listings',
       featured: true
+    },
+    {
+      title: 'Medicine App',
+      description: 'A web application for managing medicines.',
+      tech: ['TypeScript'],
+      image: '/placeholder.svg',
+      github: 'https://github.com/Ankush1oo8/medicine-app',
+      demo: 'https://medicine-app-gilt.vercel.app',
+      featured: false
+    },
+    {
+      title: 'Internet Session Management',
+      description: 'A tool for managing internet sessions.',
+      tech: ['TypeScript'],
+      image: '/placeholder.svg',
+      github: 'https://github.com/Ankush1oo8/InternetSessionManagment',
+      demo: 'https://internet-session-managment.vercel.app',
+      featured: false
+    },
+    {
+      title: 'Assignment',
+      description: 'A project for an assignment.',
+      tech: ['TypeScript'],
+      image: '/placeholder.svg',
+      github: 'https://github.com/Ankush1oo8/Assignment',
+      demo: 'https://assignment-flax-delta.vercel.app',
+      featured: false
     }
   ];
 

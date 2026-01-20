@@ -35,7 +35,7 @@ const Experience = () => {
       ]
     },
     {
-      id: 2,
+      id: 3,
       title: 'UI/UX Developer',
       company: 'SkillGuru Foundation',
       location: 'Remote',

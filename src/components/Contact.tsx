@@ -1,49 +1,10 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Allow FormSubmit to handle submission via the form's action
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
-      });
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again later.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
   const contactInfo = [
     {
       icon: Mail,
@@ -154,8 +115,6 @@ const Contact = () => {
                   <Input
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
                     required
                     className="glass-effect"
                     placeholder="Your name"
@@ -169,8 +128,6 @@ const Contact = () => {
                     id="email"
                     name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     required
                     className="glass-effect"
                     placeholder="your@email.com"
@@ -185,8 +142,6 @@ const Contact = () => {
                   <Textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     required
                     rows={6}
                     className="glass-effect resize-none"
@@ -197,21 +152,10 @@ const Contact = () => {
               <Button
                 type="submit"
                 size="lg"
-                disabled={isSubmitting}
                 className="w-full group glow-effect"
               >
-                {isSubmitting ? (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="h-5 w-5 border-2 border-current border-t-transparent rounded-full"
-                  />
-                ) : (
-                  <>
-                    <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    Send Message
-                  </>
-                )}
+                <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                Send Message
               </Button>
             </form>
           </motion.div>

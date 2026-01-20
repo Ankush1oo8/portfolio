@@ -2,17 +2,38 @@ import { useEffect, useState, Suspense, lazy } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import AnimatedGreeting from '@/components/AnimatedGreeting';
-const Hero = lazy(() => import('@/components/Hero'));
-const About = lazy(() => import('@/components/About'));
-const Experience = lazy(() => import('@/components/Experience'));
-const Skills = lazy(() => import('@/components/Skills'));
-const Projects = lazy(() => import('@/components/Projects'));
-const OpenSource = lazy(() => import('@/components/OpenSource'));
-const Contact = lazy(() => import('@/components/Contact'));
+import { preload } from '@/lib/preload';
+
+const componentImports = [
+  () => import('@/components/Hero'),
+  () => import('@/components/About'),
+  () => import('@/components/Experience'),
+  () => import('@/components/Skills'),
+  () => import('@/components/Projects'),
+  () => import('@/components/OpenSource'),
+  () => import('@/components/Contact'),
+];
+
+const Hero = lazy(componentImports[0]);
+const About = lazy(componentImports[1]);
+const Experience = lazy(componentImports[2]);
+const Skills = lazy(componentImports[3]);
+const Projects = lazy(componentImports[4]);
+const OpenSource = lazy(componentImports[5]);
+const Contact = lazy(componentImports[6]);
+
 const Index = () => {
   const [showGreeting, setShowGreeting] = useState(true);
   const [showMainContent, setShowMainContent] = useState(false);
+  const [preloadingFinished, setPreloadingFinished] = useState(false);
+
   useEffect(() => {
+    const doPreload = async () => {
+      await preload(componentImports);
+      setPreloadingFinished(true);
+    }
+    doPreload();
+
     // Smooth scrolling setup
     const smoothScroll = (e: Event) => {
       const target = e.target as HTMLAnchorElement;
@@ -27,12 +48,22 @@ const Index = () => {
     document.addEventListener('click', smoothScroll);
     return () => document.removeEventListener('click', smoothScroll);
   }, []);
+
   const handleGreetingComplete = () => {
     setShowGreeting(false);
-    setTimeout(() => setShowMainContent(true), 100);
+    if (preloadingFinished) {
+      setShowMainContent(true);
+    }
   };
+
+  useEffect(() => {
+    if (preloadingFinished && !showGreeting) {
+      setShowMainContent(true);
+    }
+  }, [preloadingFinished, showGreeting]);
+
   return (
-    (<div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <AnimatePresence>
         {showGreeting &&
           (<AnimatedGreeting onComplete={handleGreetingComplete} />)}
@@ -74,7 +105,8 @@ const Index = () => {
             </div>
           </footer>
         </>)}
-    </div>)
+    </div>
   );
 };
+
 export default Index;

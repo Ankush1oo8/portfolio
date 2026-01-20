@@ -84,7 +84,7 @@ const Hero = () => {
               <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
                 <Button 
                   size="lg" 
-                  className="group premium-border text-white hover-lift glow-effect hover:text-black"
+                  className="group premium-border text-primary hover-lift glow-effect hover:bg-accent hover:text-accent-foreground"
                   asChild
                 >
                   <a href="/cv.pdf" download>
