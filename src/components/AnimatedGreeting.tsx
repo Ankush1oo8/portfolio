@@ -81,7 +81,7 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
                 <motion.h1
-                  className={`text-6xl lg:text-8xl font-bold text-white flex justify-center ${greetings[currentIndex].font}`}
+                  className={`text-6xl lg:text-8xl font-bold text-foreground flex justify-center ${greetings[currentIndex].font}`}
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -134,7 +134,7 @@ const AnimatedGreeting = ({ onComplete }: { onComplete: () => void }) => {
           transition={{ duration: 0.4 }}
         >
           <motion.h1
-            className="text-white text-5xl lg:text-7xl font-bold"
+            className="text-foreground text-5xl lg:text-7xl font-bold"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}

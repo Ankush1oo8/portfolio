@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, Code, Server, Container, Cloud } from 'lucide-react'; // Added Code, Server, Container, Cloud
+import { Github, Linkedin, Mail, Download, Code, Server, Container, Cloud } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
@@ -7,14 +7,8 @@ const Hero = () => {
 
   return (
     <section id='home' className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-      {/* Animated background grid with responsive blur */}
-      <motion.div 
-        className="absolute inset-0 opacity-10 backdrop-blur-md md:backdrop-blur-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }} // Fade in to its default opacity
-        transition={{ duration: 1, delay: 0.8 }} // After other elements have appeared
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+      {/* Animated background grid */}
+      <div className="absolute inset-0 opacity-10">
         <div className="grid grid-cols-12 h-full">
           {Array.from({ length: 144 }).map((_, i) => (
             <motion.div
@@ -31,7 +25,7 @@ const Hero = () => {
             />
           ))}
         </div>
-      </motion.div>
+      </div>
 
       <div className="container mx-auto px-4 z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -40,14 +34,14 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }} // More pronounced easeOut
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="space-y-4"
             >
               <motion.h1 
                 className="text-6xl lg:text-8xl font-playfair font-bold"
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }} // More pronounced easeOut
+                transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <span className="block text-gradient">Full Stack</span>
                 <span className="block">Developer</span>
@@ -57,7 +51,7 @@ const Hero = () => {
                 className="text-xl text-muted-foreground max-w-lg leading-relaxed"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }} // More pronounced easeOut
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 Crafting exceptional digital experiences with modern technologies. 
                 Passionate about clean code, innovative solutions, and open source contributions.
@@ -75,7 +69,7 @@ const Hero = () => {
                   y: 0,
                   transition: {
                     delay: 0.6,
-                    staggerChildren: 0.1, // Stagger children for sequential animation
+                    staggerChildren: 0.1,
                     ease: [0.25, 0.1, 0.25, 1]
                   }
                 }
@@ -101,7 +95,7 @@ const Hero = () => {
                   visible: {
                     opacity: 1,
                     transition: {
-                      staggerChildren: 0.1 // Stagger children for sequential animation
+                      staggerChildren: 0.1
                     }
                   }
                 }}
@@ -139,7 +133,7 @@ const Hero = () => {
                   >
                     <motion.a 
                       href="mailto:ankushchudiwalwit@gmail.com"
-                      whileHover={{ scale: 1.1, rotate: 5 }} // Example: slight scale and rotate on hover
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
                       <Mail className="h-5 w-5" />
@@ -177,10 +171,10 @@ const Hero = () => {
                   <img src="/my-photo" alt="Ankush's Photo" className="w-full h-full object-cover" />
                 </div>
                 
-                <div className="hidden sm:block"> {/* Hide on extra small screens, show on sm and above */}
-                  {techIcons.map((Icon, index) => ( // Using Icon as component
+                <div className="hidden sm:block">
+                  {techIcons.map((Icon, index) => (
                     <motion.div
-                      key={index} // Use index as key, or better, if icons had unique IDs
+                      key={index}
                       className="absolute w-12 h-12 rounded-full glass-effect flex items-center justify-center text-xl"
                       style={{
                         top: `${20 + Math.sin(index * Math.PI / 2) * 40}%`,
@@ -197,7 +191,7 @@ const Hero = () => {
                         ease: 'easeInOut'
                       }}
                     >
-                      <Icon className="h-6 w-6" /> {/* Render the icon component */}
+                      <Icon className="h-6 w-6" />
                     </motion.div>
                   ))}
                 </div>
